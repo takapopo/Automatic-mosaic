@@ -7,7 +7,7 @@ import sys #コマンドの実行時に画像ファイルを渡すために必�
 
 image_file = None
 cascade_file = './haarcascades/haarcascade_frontalface_alt.xml' #カスケードファイル(学習データ)の指定
-mask_file = './image/mask.png' #合成する画像ファイルの指定
+mask_file = 'mask.png' #合成する画像ファイルの指定
 
 args = sys.argv
 
@@ -19,6 +19,7 @@ mask_image = cv2.imread(mask_file, cv2.IMREAD_UNCHANGED)
 
 cv2.imshow('image', image) #読み取った画像を表示する
 cv2.waitKey(0)
+
 
 image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) #ノイズを減らすためにモノクロ画像へと変換する
 
