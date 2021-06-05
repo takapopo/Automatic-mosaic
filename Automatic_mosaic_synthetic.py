@@ -1,3 +1,4 @@
+#透過pngの使用も可
 #ファイル名、フォルダ名にスペースを入れるとエラーが発生(sys.args内)
 #実行する際はファイル名に加えて画像データ名を入力
 #import
@@ -38,16 +39,16 @@ if len(front_face_list): #検出された顔を赤い線で囲む
         if length < h:
             length = h
         
-        # ちょっと大きめにして位置調整
+        # ちょっと大きめにして位置調整(そのままの大きさだと違和感あり)
         length = int(length * 1.5)
         x = x - int((length - w) / 2)
         y = y - int((length - h) / 2)
 
         mask_tmp = cv2.resize(mask_image, dsize=(length, length), interpolation=cv2.INTER_LINEAR)
-
+        #画像が持つ透明度のデータをのデータをもとに透明な部分の処理を飛ばす
         image[y:length + y, x:length + x] = image[y:length + y, x:length + x] * (1 - mask_tmp[:, :, 3:] / 255) \
                                             + mask_tmp[:, :, :3] * (mask_tmp[:, :, 3:] / 255)
-                                            
+
     cv2.imwrite('./images/out_replace.jpg', image)
     cv2.imshow('image', image)
     cv2.waitKey(0)
